@@ -1,95 +1,173 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Scanner;
+
 
 import java.util.List;
 
 public class TSTReadFiles {
 
 
-	
+
 	public static String moveKeywords (String stopName) {
 
 		char [] letter = stopName.toCharArray();
-		//this is the first char what is going to be added onto the end
+
 		char firstLetter = letter[0];
 		char secondLetter = letter[1];
+		char thirdLetter = letter[2];
+		char fourthLetter = letter[3];
+		char fifthLetter = letter[4];
+		char sixthLetter = letter[5];
+		char seventhLetter = letter[6];
+		char eighthLetter = letter[7];
 
 		if (stopName!=null) {
 
 			if (firstLetter=='W' && secondLetter =='B') {
-				stopName = stopName.substring(2,stopName.length()) + " " + stopName.substring(0,2);
+				stopName = stopName.substring(3,stopName.length()) + " " + stopName.substring(0,2);
 			}
 			else if (firstLetter == 'N' && secondLetter == 'B') {
-				stopName = stopName.substring(2, stopName.length()) + " " + stopName.substring(0,2);
+				stopName = stopName.substring(3, stopName.length()) + " " + stopName.substring(0,2);
 
 			}
 			else if (firstLetter == 'S' && secondLetter == 'B') {
-				stopName = stopName.substring(2, stopName.length()) + " " + stopName.substring(0,2);
+				stopName = stopName.substring(3, stopName.length()) + " " + stopName.substring(0,2);
 
 			}
 			else if (firstLetter == 'E' && secondLetter == 'B') {
-				stopName = stopName.substring(2, stopName.length()) +  " " + stopName.substring(0,2);
+				stopName = stopName.substring(3, stopName.length()) +  " " + stopName.substring(0,2);
+			}
+			else if (firstLetter == 'F' && secondLetter == 'L' && thirdLetter == 'A' && fourthLetter == 'G' && fifthLetter == 'S' && sixthLetter == 'T' && seventhLetter == 'O' && eighthLetter == 'P') {
+				stopName = stopName.substring(9, stopName.length()) +  " " + stopName.substring(0,8);
 			}
 		}
 		return stopName;
 
+
 	}
-	
-	public static void main (String[] args) {
+
+	public static Stop searchForStop (LinkedList<Stop> stops, String stopName) {
+		Stop stop = null;
+		for (Stop myStop:stops) {
+			if (myStop.stopName==stopName) {
+				stop=myStop;
+				break;
+			}
+		}
+		return stop;
+	}
+
+
+
+
+
+
+
+
+	public static void main (String[] args) throws IOException {
 		// create ArrayList to store the "Stops" objects
-		List <Stop> stop = new ArrayList<>();
+		TST<Integer> trie = new TST<>();
+
+
+		LinkedList <Stop> stopsList = new LinkedList<Stop>();
+
+
+
 		try {
+			FileReader fr = new FileReader ("src//stops.txt");
+			BufferedReader br = new BufferedReader(fr);
 
-			BufferedReader br = new BufferedReader(new FileReader("src//stop.txt"));
+			String stopInfo = br.readLine(); 
 
-			String fileRead = br.readLine();
 
-			while (fileRead!=null) {
+			while ((stopInfo !=null)) {
 
-				String[] tokenize = fileRead.split(",");
+				String tokenize[] = stopInfo.split(",");
 
-				int tempStopId = Integer.parseInt(tokenize[0]);
-				long tempStopCode = Long.parseLong(tokenize[2]);
-				String tempStopName = tokenize[2];
-				String tempStopNameAbbrev = tokenize[3];
-				double  tempStopLat = Double.parseDouble(tokenize[4]);
-				double  tempStopLong = Double.parseDouble(tokenize[5]);
-				String tempZoneId = tokenize[6];
-				int tempLocationType = Integer.parseInt(tokenize[7]);
-				int tempParentStation = Integer.parseInt(tokenize[8]);
 
-				Stop tempObj = new Stop (tempStopId, tempStopCode, tempStopName, tempStopNameAbbrev, tempStopLat, tempStopLong, tempZoneId, tempLocationType, tempParentStation);
+				String stopId = tokenize[0];
+				String stopCode = tokenize[1];
+				String stopName = tokenize[2];
+				String stopNameAbbrev = tokenize[3];
+				String stopLatitude = tokenize[4];
+				String stopLongitude = tokenize[5];
+				String stopZoneId = tokenize[6];
 
-				stop.add(tempObj);
+				String newStopName = moveKeywords(stopName);
 
-				fileRead = br.readLine();
+				Stop newStop =  new Stop (stopId, stopCode, newStopName ,stopNameAbbrev, stopLatitude, stopLongitude, stopZoneId);
+				stopsList.add(newStop);
+
+				if (!trie.contains(newStopName))
+					trie.put(newStopName , 1);
+				else 
+					trie.put(newStopName, (trie.get(newStopName) + 1)); 
+
+
+
+				stopInfo = br.readLine();
+
 
 			}
 
-			br.close();
+		}
+		catch (FileNotFoundException fnfe) {
+			System.out.println("File Not Found");
+		}
+		String string = "FLAGSTOP has Covid";
+		String newString = moveKeywords(string);
+		System.out.println(newString);
 
+
+		System.out.println(trie.size());
+
+
+
+
+
+		String myStopName = "KING GEORGE BLVD FS 16 AVE SB";
+
+		if(trie.get(myStopName)!= null) {
+			Stop stopInformation = searchForStop(stopsList,myStopName);
+			stopInformation.stopToString(stopInformation);
 		}
 
-		catch(FileNotFoundException fnfe) {
-			System.out.println("File not found");
+
+
+
+
+		LinkedList<String> linkedList = trie.keysWithPrefix("SPRING");
+		int numberWithGivenPrefix = 0; 
+		for (String temp : linkedList) 
+		{
+			numberWithGivenPrefix = numberWithGivenPrefix + trie.get(temp);
 		}
 
-		catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
+		System.out.println(numberWithGivenPrefix);
 
 
 
 	}
-
-
-
-
-
-	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
