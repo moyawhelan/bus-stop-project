@@ -158,5 +158,8 @@ public class TST<Value>  {
 	      
 	      collect(x.right, prefix, list);
 	  }
+	  
+	
+
 
 }

@@ -52,17 +52,39 @@ public class TSTReadFiles {
 
 	}
 
-	public static Stop searchForStop (LinkedList<Stop> stops, String stopName) {
-		Stop stop = null;
-		for (Stop myStop:stops) {
-			if (myStop.stopName==stopName) {
-				stop=myStop;
-				break;
+	public static Stop searchForStop (ArrayList<Stop> stops, String stopName) {
+
+		for (Stop stop:stops) {
+
+			if (stop.getStopName().equals(stopName)) {
+
+				return stop;
 			}
 		}
-		return stop;
+		return null;
 	}
 
+	public static void getStopFromUserInput (String userInputStopName, TST<Integer> trie, ArrayList <Stop> stopsList ) {
+
+		if (userInputStopName!=null && trie!=null && stopsList!=null) {
+
+			userInputStopName = userInputStopName.toUpperCase();
+
+			if(trie.get(userInputStopName)!= null) {
+				Stop stopInformation = searchForStop(stopsList,userInputStopName);
+				System.out.println(stopInformation.toString());
+			}
+
+			else if (trie.keysWithPrefix(userInputStopName)!=null) {
+				for (String temp: trie.keysWithPrefix(userInputStopName))
+					System.out.println(temp);
+			}
+
+			else {
+				System.out.println("This stop is not listed on this bus route, or the stop must be a valid English word");
+			}
+		}
+	}
 
 
 
@@ -75,7 +97,7 @@ public class TSTReadFiles {
 		TST<Integer> trie = new TST<>();
 
 
-		LinkedList <Stop> stopsList = new LinkedList<Stop>();
+		ArrayList <Stop> stopsList = new ArrayList<Stop>();
 
 
 
@@ -120,37 +142,10 @@ public class TSTReadFiles {
 		catch (FileNotFoundException fnfe) {
 			System.out.println("File Not Found");
 		}
-		String string = "FLAGSTOP has Covid";
-		String newString = moveKeywords(string);
-		System.out.println(newString);
 
 
-		System.out.println(trie.size());
-
-
-
-
-
-		String myStopName = "KING GEORGE BLVD FS 16 AVE SB";
-
-		if(trie.get(myStopName)!= null) {
-			Stop stopInformation = searchForStop(stopsList,myStopName);
-			stopInformation.stopToString(stopInformation);
-		}
-
-
-
-
-
-		LinkedList<String> linkedList = trie.keysWithPrefix("SPRING");
-		int numberWithGivenPrefix = 0; 
-		for (String temp : linkedList) 
-		{
-			numberWithGivenPrefix = numberWithGivenPrefix + trie.get(temp);
-		}
-
-		System.out.println(numberWithGivenPrefix);
-
+		String userInput = "Hastings";
+		getStopFromUserInput(userInput, trie, stopsList);
 
 
 	}

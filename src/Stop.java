@@ -3,7 +3,7 @@ public class Stop {
 	
 	private String stopId;
 	private String stopCode;
-	public String stopName;
+	private String stopName;
 	private String stopNameAbbrev;
 	private String stopLat;
 	private String stopLong;
@@ -26,10 +26,40 @@ public class Stop {
 	}
 	
 	
+	public String getStopId () {
+		return stopId;
+	}
+	
+	public String getStopCode () {
+		return stopCode;
+	}
+	
+
+	
+	public String getStopName () {
+		return stopName;
+	}
+	
+	public String getStopNameAbbrev () {
+		return stopNameAbbrev;
+	}
+	public String getStopLat () {
+		return stopLat;
+	}
+	public String getStopLong() {
+		return stopLong;
+	}
+	public String getZoneId () {
+		return zoneId;
+	}
+	
+	
+	
+	
 	
 
 
-	public String stopToString (Stop stop) {
+	public String toString () {
 		return "Stop ID: " + stopId + '\n' + "Stop Code: " + stopCode + '\n' + "Stop Name: " + stopName + '\n' + "Stop Name Abbreviated: " + stopNameAbbrev + '\n' + "Stop Latitude: " + stopLat + '\n' +  "Stop Longitude: " + stopLong + '\n' + "Zone ID: " + zoneId;
 	}
 
