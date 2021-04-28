@@ -1,4 +1,4 @@
-CSU22012- ALgorithms and Data Structures
+CSU22012- Algorithms and Data Structures
 
 Bus Management System based on Vancouver bus system data
 
