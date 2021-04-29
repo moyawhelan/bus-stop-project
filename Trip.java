@@ -27,6 +27,7 @@ public class Trip
 		{
 			System.out.print(transfer.toString());
 		}
+		System.out.println("");
 	}
 
 }
