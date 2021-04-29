@@ -73,10 +73,9 @@ public class Transfer
 	
 	public String toString() 
 	{
-		return "\n Stop Sequence: " + getStopSequence() +"\n Arrival Time: " + getArrivalTime() + 
-				"\n Departure Time: " + getDepartureTime() + "\n Pick Up Type: " + getPickupType() + 
-				"\n Drop Off Type: " + getDropOffType() + "\n Distance travelled: " 
-				+ getDistTravelled() + "\n" ;
+		return "\n Stop ID: " + getStopId() +", Arrival Time: " + getArrivalTime() + 
+				", Departure Time: " + getDepartureTime()  + ", Distance travelled: " 
+				+ getDistTravelled() ;
 	}
 	
 }
