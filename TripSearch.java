@@ -39,7 +39,7 @@ public class TripSearch
 		}
 		else 
 		{
-			System.out.println("There " + ((match.size() == 1)? "is " : "are " +  match.size()) 
+			System.out.println("There " + ((match.size() == 1)? "is one trip " : "are " +  match.size() + " trips") 
 			+ " that match that arrival time."); 
 			
 			match.sort(Comparator.comparingInt(Trip::getID));
