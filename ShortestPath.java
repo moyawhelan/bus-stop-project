@@ -3,6 +3,9 @@ import java.util.*;
 
 public class ShortestPath {
 	
+	//This class 'Shortest Path', has both the code for Dijkstra sorting, and input evaluation. The input
+	//evaluation code use to be the 'Costs' class but we moved them together here for simplicity
+	
 	//double adjMatrix[][] = new double[12479][12479];
 	static double Costs[][] = new double[12479][12479];
 	
@@ -262,7 +265,7 @@ public class ShortestPath {
 	
 	
 	
-	//implements Dijkstra's shortest path algorithm for a network represented by an adjacency matrix
+	//implements Dijkstra's shortest path algorithm for a network represented by an adjacency (Costs) matrix
 	public String Dijkstra(int source, int destination){
 		
 		if(source == destination) {
@@ -336,13 +339,19 @@ public class ShortestPath {
     
     
     
+	/*
 	public static void main(String[] args) {
 		
-		ShortestPath network = new ShortestPath("src/stop_times.txt", "src/transfers.txt");
-		String fileInput = "src/stops.txt";
-    	String filename = "src/stop_times.txt";
-    	String transfers2 = "src/transfers.txt";
+		ShortestPath network = new ShortestPath("stop_times.txt", "transfers.txt");
+		String fileInput = "stops.txt";
+    	String filename = "stop_times.txt";
+    	String transfers2 = "transfers.txt";
+    	
+    	
+    	boolean [] exist = network.DoesStopExist;
 		
+		boolean resultExist = exist[122];
+		System.out.println(resultExist);
 		
 		network.CostsArray(filename, fileInput, transfers2);
 		
@@ -350,10 +359,7 @@ public class ShortestPath {
 		
 		double testVal = tester[378][379];
 		
-		boolean [] exist = network.DoesStopExist;
 		
-		boolean resultExist = exist[122];
-		System.out.println(resultExist);
 		
 		
 		System.out.println(testVal);
@@ -363,5 +369,6 @@ public class ShortestPath {
 		System.out.println("Shortest distance from Stop(5191) to Stop(5191): " + network.Dijkstra(5191, 5191));//returns 0 as the source is the same as the destination
 		System.out.println("Shortest distance from Stop(94) to Stop(8325): " + network.Dijkstra(94, 8325));//these stops are not connected so no path exists
 	}
+	*/
 }
 
