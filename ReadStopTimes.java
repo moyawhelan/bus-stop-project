@@ -18,7 +18,7 @@ public class ReadStopTimes
     {
     	try 
 		{
-			FileReader fr = new FileReader("src//stop_times.txt");
+			FileReader fr = new FileReader("stop_times.txt");
 			BufferedReader br = new BufferedReader(fr);
 			
 			String tripInfo = br.readLine();

@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class TripSearch 
 {
 
-	private static DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("H:mm:ss");
+	static DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("H:mm:ss");
 	
 	public static boolean isValid(String time) 
 	{
@@ -35,7 +35,7 @@ public class TripSearch
 		
 		if(match.size() == 0) 
 		{
-			System.out.println("There are no trips that match that arrival time.");
+			System.err.println("There are no trips that match that arrival time. Please try again!");
 		}
 		else 
 		{
@@ -54,53 +54,10 @@ public class TripSearch
 	}
 	
 	
-	public static void main(String[] args) throws IOException 
-	{
-		ReadStopTimes object = new ReadStopTimes();
-		
-		try {
-			boolean finished = false;
-			while (!finished) {
 
-				System.out.println("\nPlease enter the arrival time or 'Quit' to exit: ");
-
-				Scanner input = new Scanner(System.in);
-				
-				if(input.hasNext("Quit") || input.hasNext("quit"))
-				{
-					System.out.println("Goodbye.");
-					finished = true;
-					input.close();
-				}
-				
-				else if(input.hasNext())
-				{
-					String userInput = input.nextLine();
-					if(isValid(userInput)) 
-					{
-						LocalTime time = LocalTime.parse(userInput, parseFormat);
-						getUserInput(object.getArrivalsList(), object.getTripsList(), time);
-					}
-					else 
-					{
-						System.out.println("This is not a valid input. Please try again or quit.");
-					}
-				}
-				
-			}
-		}
-
-		catch( NullPointerException exception )
-		{
-
-		}
-		catch(java.util.NoSuchElementException exception)
-		{
-			System.err.println("This is not a valid input.");
-		}
 
 		
 		
 	}
 
-}
+
